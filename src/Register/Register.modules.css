@@ -1,0 +1,28 @@
+/* Register.css */
+
+.container {
+    background-color: #8ABFB5;
+}
+
+.boxCadastro {
+    background-color: #51868C;
+    padding: 32px;
+    border-radius: 30px;
+    padding-bottom: 3px;
+}
+
+.imgLogo {
+    width: 65%;
+}
+
+button.btn.btn-primary {
+    background-color: whitesmoke;
+    color: #8ABFB5;
+    border-color: whitesmoke;
+    border-radius: 30px;
+}
+
+button.btn.btn-primary:hover {
+    background-color: #51868C;
+    border-color: #51868C;
+}
