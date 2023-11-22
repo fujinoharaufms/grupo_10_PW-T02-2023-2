@@ -1,0 +1,92 @@
+
+/* Estilos Globais */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background-color: #89bfb5;
+}
+
+/* Classes do React Component */
+.profile-section,
+.quiz-list-section,
+.quiz-detail-section {
+  background-color: #d9d9d9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.quiz-list-item,
+.quiz-detail-item {
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
+.questions {
+  background-color: #d9d9d9;
+}
+
+.icon {
+  width: 20px;
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+}
+
+#header {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 10px;
+  background-color: #d9d9d9;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.others img {
+  width: 20px;
+}
+
+.others {
+  background-color: #d9d9d9 !important;
+}
+
+.edit img {
+  width: 20px;
+}
+
+.edit {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit h4 {
+  margin: 0px !important;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 600px) {
+  #header {
+    display: grid;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .responsive {
+    display: grid;
+  }
+}

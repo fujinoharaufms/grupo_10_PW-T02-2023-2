@@ -1,0 +1,53 @@
+
+body {
+    background-color: #8ABFB5;
+  }
+  
+  .circle-input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .circle-input {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    height: 100px; /* Ajuste o tamanho conforme necessário */
+    border-radius: 25%;
+    background-color: #f0f0f0; /* Cor do círculo */
+    margin: 10px;
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+  }
+  
+  .circle-input input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 24px; /* Ajuste o tamanho da fonte conforme necessário */
+  }
+  
+  .upload-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  #logo {
+    width: 25%;
+    height: 25%;
+  }
+  
+  .sidebar {
+    margin-left: 1rem;
+    border-radius: 3%;
+  }
+  
+  .adm {
+    width: 15%;
+    height: 15%;
+  }
+  

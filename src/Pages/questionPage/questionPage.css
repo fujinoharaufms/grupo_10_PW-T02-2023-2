@@ -1,0 +1,92 @@
+body {
+    background-color: #8abfb5;
+  }
+  
+  h3 {
+    color: #e5f2d0;
+  }
+  
+  div.col-md-3 {
+    background-color: #e5f2d0;
+  }
+  
+  div.container-fluid {
+    padding: 0;
+  }
+  
+  div.row.mx-auto.text-center {
+    height: 100vh;
+  }
+  
+  .boxRespostas {
+    background-color: #51868c;
+    padding: 32px;
+    border-radius: 30px;
+    padding-bottom: 3px;
+  }
+  
+  img.img {
+    height: 15%;
+    padding-top: 3%;
+  }
+  
+  img.img-fluid.mb-4 {
+    padding-top: 90px;
+  }
+  
+  button.btn-primary.custom-color1 {
+    background-color: #03a64a;
+    border-color: #03a64a;
+    border-radius: 22px;
+  }
+  
+  button.btn-primary.custom-color2 {
+    background-color: #ca756f;
+    border-color: #ca756f;
+    border-radius: 22px;
+  }
+  
+  button.btn-primary.custom-color3 {
+    background-color: #664846;
+    border-color: #664846;
+    border-radius: 22px;
+  }
+  
+  button.btn-primary.custom-color4 {
+    background-color: #d261fb;
+    border-color: #d261fb;
+    border-radius: 22px;
+  }
+  
+  .usuario {
+    color: rgb(0, 0, 0);
+  }
+  
+  li.list-group-item.d-flex.justify-content-between.align-items-center {
+    background-color: #8abfb5;
+  }
+  
+  button.btn.custom-btn-1 {
+    color: #496560;
+  }
+  
+  button.btn.custom-btn-1:hover {
+    text-decoration: underline;
+  }
+  
+  button.estilo:hover {
+    background-color: rgba(248, 245, 245, 0.367);
+  }
+  
+  #teste {
+    background-color: whitesmoke;
+    color: #496560;
+    border-color: whitesmoke;
+    border-radius: 30px;
+  }
+  
+  #teste:hover {
+    background-color: #51868c;
+    border-color: #51868c;
+  }
+  

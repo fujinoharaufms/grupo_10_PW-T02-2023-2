@@ -1,6 +1,6 @@
 //Importação das bibliotecas de configuração do firebase
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 // Configurações encontradas no console do Firebase
 //Insira aqui as configurações
@@ -18,4 +18,4 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseApp);
 
-export { db };
+export { db, collection, addDoc };

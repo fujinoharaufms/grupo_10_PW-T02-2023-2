@@ -77,7 +77,7 @@ import {
       setError(false);
   
       try {
-        await signInWithEmailAndPassword(auth, data.email, data.password);
+        await signInWithEmailAndPassword(auth, data.email, data.senha);
       } catch (error) {
         console.log(error.message);
         console.log(typeof error.message);
