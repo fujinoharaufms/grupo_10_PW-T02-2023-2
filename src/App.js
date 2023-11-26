@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css'; // Notificação
 import Home from './Pages/Home/Home';
-import About from './Pages/About/About';
 import Register from './Register/Register';
 
 import { onAuthStateChanged } from 'firebase/auth';
@@ -54,7 +53,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/About" element={<About />} />
           <Route path="/Login" element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/Register" element={!user ? <Register /> : <Navigate to="/" />} />
           <Route path="/CriarQuiz" element={ user ? (<CriarQuizz userId={user.uid} /> ) : (<Navigate to="/" /> ) }/>

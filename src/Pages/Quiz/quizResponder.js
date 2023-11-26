@@ -16,6 +16,7 @@ const Quiz = () => {
   const [quizCompleted, setQuizCompleted] = useState(false);
 
   useEffect(() => {
+
     if (!user) {
       navigate('/Register'); // Redireciona se não houver usuário logado
     }
@@ -124,6 +125,9 @@ const Quiz = () => {
 
   const currentQuestion = quizData.questoes[currentQuestionIndex];
 
+  
+  const selectedAnswer = userAnswers[currentQuestionIndex];
+
   return (
     <div className="container-fluid">
       <div className="row mx-auto text-center">
@@ -136,7 +140,7 @@ const Quiz = () => {
         <div className="col-sm-9 text-center">
           <h3 className="d-flex justify-content-start">{quizData.nomeQuizz} - Questão {currentQuestionIndex + 1}/{quizData.questoes.length}</h3>
           <h4>{currentQuestion.pergunta}</h4>
-          
+          {selectedAnswer && <p>Resposta Selecionada: {selectedAnswer}</p>}
           <form className="boxRespostas mb-4">
             {currentQuestion.opcoes.map((option, index) => (
               <div className="mb-3" key={index}>
