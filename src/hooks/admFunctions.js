@@ -88,3 +88,18 @@ export const deleteQuestionById = async (quizId, questionId) => {
     throw new Error('Erro ao excluir questão.');
   }
 };
+
+export const deleteQuizById = async (quizId) => {
+  try {
+    // Obter a referência do documento do quizz
+    const quizDocRef = doc(db, 'quizzes', quizId);
+    
+    // Excluir o documento do quizz
+    await deleteDoc(quizDocRef);
+    
+    console.log(`Quiz com ID ${quizId} foi excluído com sucesso.`);
+  } catch (error) {
+    console.error('Erro ao excluir quiz:', error);
+    throw new Error(error);
+  }
+};

@@ -63,13 +63,8 @@ import { buscarQuizzes } from '../../hooks/admFunctions';
             <div className="card-body">
                 <div className="wholecard">
                 <div className="card-content">
-                    <h2 className="card-title">{quiz.nomeQuizz}</h2>
-                    <h4 className="card-description">{quiz.descricao}</h4>
-                    <p>
-                    <small className="text-muted">
-                        Criado por <a href="#">{quiz.creator}</a>
-                    </small>
-                    </p>
+                <h2 className="card-title mb-3">{quiz.nomeQuizz}</h2> {/* Adiciona espaço abaixo do h2 */}
+        <h4 className="card-description">{quiz.descricao}</h4> {/* h4 aparece abaixo do h2 */}
                 </div>
                 <p className="edition">{quiz.lastEdited}</p>
                 </div>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './visualizarQuiz.modules.css'; // Importe o CSS
-import { buscarQuizzPorId, deleteQuestionById} from '../../hooks/admFunctions';
+import { buscarQuizzPorId, deleteQuestionById, deleteQuizById} from '../../hooks/admFunctions';
 import hideIcon from '../../imagens/hide.png';
 import editIcon from '../../imagens/editing.png';
 import deleteIcon from '../../imagens/trash.png';
@@ -10,6 +10,7 @@ import deleteIcon from '../../imagens/trash.png';
 const View = () => {
     const { quizId } = useParams();
     const [quiz, setQuiz] = useState(null);
+    const navigate = useNavigate();
   
     useEffect(() => {
       const fetchQuizData = async () => {
@@ -41,6 +42,19 @@ const View = () => {
       }
       
     };
+
+    const handleDeleteQuiz = async () => {
+        if (window.confirm('Você tem certeza que deseja apagar este quizz?')) {
+          try {
+            await deleteQuizById(quizId);
+            // Redireciona para outra página ou atualiza o estado conforme necessário
+            // Por exemplo: navigate('/') para voltar para a página inicial
+            navigate('/');
+          } catch (error) {
+            console.error('Erro ao apagar quizz:', error);
+          }
+        }
+      };
 
   return (
     <div className="responsive container-fluid p-5" style={{ backgroundColor: '#89bfb5' }}>
@@ -74,9 +88,8 @@ const View = () => {
 
             {/* Botões de ação */}
             <div className="d-flex gap-2">
-              <button className="btn btn-success">Adicionar Questões</button>
-              <button className="btn btn-primary">Salvar Estado</button>
-              <button className="btn btn-danger">Apagar Quizz</button>
+              <button className="btn btn-success" onClick={()=> navigate(`/questions/${quizId}`)}>Adicionar Questões</button>
+              <button className="btn btn-danger" onClick={handleDeleteQuiz}>Apagar Quizz</button>
             </div>
           </div>
         </div>
