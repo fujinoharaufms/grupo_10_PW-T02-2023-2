@@ -1,5 +1,5 @@
 #Iniciar projeto
-1. Pelo terminal, acessar a pasta do projeto - a que contem os arquivos package-lock.json e package.json.
+1. Pelo terminal, acessar a pasta do projeto - a que contem os arquivos package-lock.json e package.json. Dê o npm install.
 2. Instalar Boostrap com o comando: npm i bootstrap
 3. Instalar Firebase com o comando: npm i firebase
 4. Iniciar o projeto com o comando: npm start
