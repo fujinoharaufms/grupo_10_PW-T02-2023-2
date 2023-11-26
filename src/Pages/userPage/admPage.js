@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './admPage.css';
+import { buscarQuizzes } from './caminho/para/sua/funcao/buscarQuizzes'; // Substitua pelo caminho correto
+
 
 const AdminPanel = () => {
+  const [quizzes, setQuizzes] = useState([]);
+  
+  useEffect(() => {
+    buscarQuizzes().then(data => {
+      setQuizzes(data);
+    });
+  }, []);
+
+  
   return (
     <div className="responsive container-fluid p-5" style={{ backgroundColor: '#89bfb5' }}>
       <div className="row">

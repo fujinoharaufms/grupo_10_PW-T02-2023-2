@@ -1,0 +1,128 @@
+#sidebar {
+    background-color: #e5f2d0 !important;
+  }
+  #main {
+    background-color: #89bfb5 !important;
+  }
+  #avatar {
+    display: flex;
+    align-items: center;
+  }
+  #Logo {
+    margin-top: 20px;
+    align-items: center;
+    display: flow !important;
+    font-size: 150%;
+  }
+  #pontuacao {
+    display: flex;
+    font-size: 13px;
+    gap: 50px;
+    margin-top: 40px;
+  }
+  #bottom-black {
+    border: 0; /* Remove a borda padrão */
+    height: 5px; /* Define a espessura da linha */
+    background-color: black; /* Define a cor da linha */
+    margin: 20px 0; /* Adiciona um espaçamento antes e depois da linha */
+  }
+  
+  .widget-btn:hover {
+    background-color: #2980b9; /* Cor de fundo ao passar o mouse */
+  }
+  li a {
+    color: black;
+    font-size: 19px;
+    font: 200;
+  }
+  a img {
+    margin-right: 25px;
+  }
+  #navfooter {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    font-size: 20px;
+  }
+  
+  .widget-btn {
+    width: 200px; /* Define uma largura padrão para os botões */
+    padding: 10px;
+    border-radius: 30px;
+    background-color: #63b896;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center; /* Garante que o texto seja centralizado */
+    font-size: 20px;
+  }
+  
+  .widget-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .widget-container .widget-btn {
+    margin: 0 10px;
+  }
+  
+  .widget-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .widget-container .widget-btn {
+    margin: 0 10px;
+  }
+  
+  main img {
+    margin: auto;
+  }
+  
+  #buttons {
+    gap: 100px;
+  }
+  
+  #teste {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  #email {
+    height: 69px;
+  }
+  
+  /* Estilos para padronizar o tamanho */
+  .settings-container .btn,
+  .settings-container .form-control {
+    width: 200px; /* Definindo uma largura fixa. Ajuste este valor conforme necessário */
+  }
+  
+  @media (max-width: 1000px) {
+    #pontuacao {
+      display: block;
+    }
+    #avatar {
+      display: block !important;
+    }
+  }
+  
+  @media (max-width: 520px) {
+    #buttons {
+      display: flow !important;
+    }
+    #responsive {
+      margin-bottom: 5px !important;
+      gap: 30px;
+    }
+  }
+  
+  #sidebar {
+    background-color: #28a745; /* Verde do Bootstrap */
+    min-height: 100vh; /* Altura mínima para ocupar toda a viewport vertical */
+  }
+  #Logo {
+    display: flex;
+  }
+  

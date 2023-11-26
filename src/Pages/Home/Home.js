@@ -59,7 +59,9 @@ const Home = () => {
           <span className="mobile">Quizzes</span>
         </button>
         
-        <img id="user" src={userIcon} alt="" />
+        <Link to="/painel-usuario">
+          <img id="user" src={userIcon} alt="" />
+        </Link>
       </div>
 
       {/* Seção de botões de quizz */}

@@ -1,111 +1,157 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, doc, getDocs, getDoc } from 'firebase/firestore';
+import { useAuthentication } from '../../hooks/useAuthentication';
+import { useNavigate, useParams } from 'react-router-dom';
 import { db } from '../../fireBaseConnection';
-import { useParams } from 'react-router-dom';
+import './quizResponder.modules.css';
 
 const Quiz = () => {
-  const { quizId } = useParams();
-  console.log('quizId:', quizId); // Log do quizId
-
+  const { quizId} = useParams();
+  const { user } = useAuthentication(); //Verificar se há user logado
+  const navigate = useNavigate();
   const [quizData, setQuizData] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [score, setScore] = useState(0);
+  const [quizCompleted, setQuizCompleted] = useState(false);
 
-  
+  useEffect(() => {
+    if (!user) {
+      navigate('/Register'); // Redireciona se não houver usuário logado
+    }
+  }, [user, navigate]);
+
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        // Buscar os detalhes do quiz
         const quizDocRef = doc(db, 'quizzes', quizId);
         const quizSnapshot = await getDoc(quizDocRef);
-  
+
         if (quizSnapshot.exists()) {
           const data = quizSnapshot.data();
           setQuizData(data);
+
+          const questoesRef = collection(db, 'quizzes', quizId, 'questoes');
+          const querySnapshot = await getDocs(questoesRef);
+
+          const questoesArray = [];
+          querySnapshot.forEach((doc) => {
+            questoesArray.push(doc.data());
+          });
+
+          setQuizData(prevState => ({ ...prevState, questoes: questoesArray }));
+          setUserAnswers(Array(questoesArray.length).fill(''));
         } else {
           console.error('Quiz não encontrado');
         }
-  
-        // Buscar as questões associadas ao quiz
-        const questoesRef = collection(db, 'quizzes', quizId, 'questoes');
-        const querySnapshot = await getDocs(questoesRef);
-  
-        const questoesArray = [];
-        querySnapshot.forEach((doc) => {
-          questoesArray.push(doc.data());
-        });
-  
-        setQuizData(prevState => ({ ...prevState, questoes: questoesArray }));
-  
       } catch (error) {
         console.error('Erro ao buscar informações do quiz:', error);
       }
     };
-  
+
     fetchQuizData();
   }, [quizId]);
 
-  const handleAnswerSelection = (questionIndex, selectedOption) => {
-    console.log(`Resposta selecionada para a questão ${questionIndex}:`, selectedOption); // Log da resposta selecionada
+  useEffect(() => {
+    const saveScoreToDB = async () => {
+      if (quizCompleted && quizData && quizData.userId) {
+        try {
+          const scoresCollection = collection(db, 'scores');
+          await addDoc(scoresCollection, {
+            userId: quizData.userId,
+            quizId: quizId,
+            score,
+          });
+          console.log('Pontuação salva com sucesso:', score);
+        } catch (error) {
+          console.error('Erro ao salvar pontuação:', error);
+        }
+      }
+    };
+
+    if (quizCompleted) {
+      saveScoreToDB();
+    }
+  }, [quizCompleted, quizData, quizId, score]);
+
+  const handleAnswerSelection = (selectedOption) => {
     const updatedAnswers = [...userAnswers];
-    updatedAnswers[questionIndex] = selectedOption;
+    updatedAnswers[currentQuestionIndex] = selectedOption;
     setUserAnswers(updatedAnswers);
   };
 
+  const goToNextQuestion = () => {
+    if (currentQuestionIndex < (quizData?.questoes?.length || 0) - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    }
+  };
+
+  const goToPreviousQuestion = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+    }
+  };
+
   const calculateScore = () => {
-    console.log('Calculando pontuação'); // Log ao iniciar cálculo da pontuação
     let userScore = 0;
     quizData?.questoes?.forEach((question, index) => {
       if (userAnswers[index] === question.respostaCorreta) {
         userScore++;
       }
     });
-    console.log('Pontuação calculada:', userScore); // Log da pontuação calculada
     setScore(userScore);
   };
 
-  const saveScore = async () => {
-    if (quizData && quizData.userId) {
-      try {
-        const scoresCollection = collection(db, 'scores');
-        await addDoc(scoresCollection, {
-          userId: quizData.userId, // Usando o userId do quizData
-          quizId: quizId, // Supondo que quizId é uma string
-          score,
-        });
-        console.log('Pontuação salva com sucesso:', score);
-      } catch (error) {
-        console.error('Erro ao salvar pontuação:', error);
-      }
-    } else {
-      console.log('Informação do userId não disponível');
-    }
+  const submitQuiz = () => {
+    calculateScore();
+    setQuizCompleted(true); // Marca o quiz como concluído
   };
+
+  if (!quizData || !quizData.questoes || quizData.questoes.length === 0) {
+    return <div>Carregando quiz...</div>;
+  }
+
+  const currentQuestion = quizData.questoes[currentQuestionIndex];
+
   return (
-    <div>
-      <h1>{quizData?.nomeQuizz}</h1>
-      {quizData?.questoes?.map((question, index) => (
-        <div key={question.id || index}>
-          <h2>{question.pergunta}</h2>
-          <ul>
-            {question.opcoes.map((option, optionIndex) => (
-              <li key={optionIndex}>
-                <label>
-                  <input
-                    type="radio"
-                    name={`question_${index}`}
-                    value={option}
-                    onChange={() => handleAnswerSelection(index, option)}
-                  />
-                  {option}
-                </label>
-              </li>
-            ))}
-          </ul>
+    <div className="container-fluid">
+      <div className="row mx-auto text-center">
+        {/* Barra lateral esquerda (mantenha ou remova conforme sua necessidade) */}
+        <div className="col-md-3 custom-colorBar">
+          {/* Conteúdo da barra lateral */}
         </div>
-      ))}
-      <button onClick={() => { calculateScore(); saveScore(); }}>Finalizar Quiz</button>
-      <p>Pontuação: {score}</p>
+
+        {/* Conteúdo principal */}
+        <div className="col-sm-9 text-center">
+          <h3 className="d-flex justify-content-start">{quizData.nomeQuizz} - Questão {currentQuestionIndex + 1}/{quizData.questoes.length}</h3>
+          {/* Imagem do Quiz, se houver */}
+          
+          <form className="boxRespostas mb-4">
+            {currentQuestion.opcoes.map((option, index) => (
+              <div className="mb-3" key={index}>
+                <button 
+                  type="button" 
+                  className={`btn btn-primary custom-color${index + 1} estilo`}
+                  onClick={() => handleAnswerSelection(option)}
+                >
+                  {option}
+                </button>
+              </div>
+            ))}
+          </form>
+
+          <div className="d-flex justify-content-between">
+            {currentQuestionIndex > 0 && (
+              <button type="button" className="btn btn-primary ml-auto" onClick={goToPreviousQuestion}>Voltar</button>
+            )}
+            {currentQuestionIndex < quizData.questoes.length - 1 ? (
+              <button type="button" className="btn btn-primary mr-auto" onClick={goToNextQuestion}>Próxima</button>
+            ) : (
+              <button type="button" className="btn btn-primary mr-auto" onClick={submitQuiz}>Finalizar Quiz</button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

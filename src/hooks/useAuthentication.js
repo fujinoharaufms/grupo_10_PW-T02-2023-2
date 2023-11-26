@@ -1,4 +1,5 @@
 import {db} from '../fireBaseConnection';
+import { collection, addDoc } from 'firebase/firestore';
 
 import {
     getAuth,
@@ -11,6 +12,7 @@ import {
   import { useState, useEffect } from "react";
   
   export const useAuthentication = () => {
+
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
   
@@ -18,7 +20,22 @@ import {
     const [cancelled, setCancelled] = useState(false);
   
     const auth = getAuth();
-  
+    const [user, setUser] = useState(() => auth.currentUser);
+
+      // Monitora mudanças no estado de autenticação
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          setUser(user);
+        } else {
+          setUser(null);
+        }
+      });
+
+      return () => unsubscribe();
+    }, [auth]);
+
+
     function checkIfIsCancelled() {
       if (cancelled) {
         return;
@@ -27,29 +44,41 @@ import {
   
     const createUser = async (data) => {
       checkIfIsCancelled();
-
+    
       setLoading(true);
-  
+      setError(null);
+    
       try {
         const { user } = await createUserWithEmailAndPassword(
           auth,
           data.email,
           data.senha
         );
-  
+    
         await updateProfile(user, {
-          displayName: data.displayName,
+          displayName: data.nome,
         });
-
+    
+        // Adiciona o usuário na coleção 'usuarios'
+        const userProfile = {
+          nome: data.nome,
+          email: data.email,
+          userId: user.uid,
+        };
+    
+        try {
+          await addDoc(collection(db, "usuarios"), userProfile);
+        } catch (innerError) {
+          console.error("Erro ao adicionar usuário no Firestore:", innerError);
+          // Você pode optar por lançar um erro aqui ou lidar com ele de outra maneira
+        }
+    
         setLoading(false);
-  
         return user;
       } catch (error) {
         console.log(error.message);
-        console.log(typeof error.message);
-  
+    
         let systemErrorMessage;
-  
         if (error.message.includes("Password")) {
           systemErrorMessage = "A senha precisa conter pelo menos 6 caracteres.";
         } else if (error.message.includes("email-already")) {
@@ -57,11 +86,10 @@ import {
         } else {
           systemErrorMessage = "Ocorreu um erro, por favor tenta mais tarde.";
         }
-  
+    
         setError(systemErrorMessage);
+        setLoading(false);
       }
-  
-      setLoading(false);
     };
   
     const logout = () => {
@@ -109,6 +137,7 @@ import {
   
     return {
       auth,
+      user,
       createUser,
       error,
       logout,
