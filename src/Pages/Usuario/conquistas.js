@@ -9,8 +9,8 @@ import trofeu3 from '../../images/trofeu-3.svg'; // Caminho para sua imagem de t
 
 const Conquistas = () => {
 
-    const { score, isConquista } = useUserScore(userId);
-    
+    //const { score, isConquista } = useUserScore(userId);
+
   return (
     <div className="container-fluid">
       <div className="row">
