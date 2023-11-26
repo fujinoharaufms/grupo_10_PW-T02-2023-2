@@ -1,0 +1,12 @@
+h1 {
+    color: black !important;
+    text-align: center;
+  }
+  
+  div {
+    width: 70%;
+    text-align: justify;
+    margin: auto;
+    margin-top: 40px;
+  }
+  

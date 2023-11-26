@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useAuthentication } from '../../hooks/useAuthentication';
 import './usuarioPainel.modules.css';
 import userImage from '../../imagens/user.png'; 
@@ -52,7 +52,7 @@ const PainelUser = () => {
             <ul className="nav flex-column">
               {/* Lista de amigos - substitua por componentes dinâmicos conforme necessário */}
               <li className="nav-item">
-              <a href="#" id="responsive" className="btn widget-btn">
+              <a href='#' id="responsive" className="btn widget-btn">
                 <div>
                   <img src={userImage} width="85%" alt="Conquistas" />
                 </div>
@@ -75,10 +75,11 @@ const PainelUser = () => {
               <div>Meus Quizzes</div>
             </a>
             <div id="buttons" className="widget-container d-flex justify-content-between">
+              <Link to='/Conquistas'>
               <a href="#" className="btn widget-btn">
                 <img src={trophyImage} width="70%" alt="Conquistas" />
                 <div>Conquistas</div>
-              </a>
+              </a></Link>
               <a href="#" className="btn widget-btn">
                 <img src={starImage} width="70%" alt="Favoritos" />
                 <div>Favoritos</div>

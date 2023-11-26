@@ -1,5 +1,3 @@
-/* Adicione este conteúdo ao seu arquivo .css ou componente React */
-
 body,
 html {
   margin: 0;
@@ -24,7 +22,7 @@ html {
 }
 
 #user {
-  width: 5%;
+  width: 6%;
   height: 60px;
 }
 
@@ -44,18 +42,19 @@ html {
 }
 
 .bigcard {
-  width: 70%;
-  background-color: #e5f2d0;
-  border-radius: 100px;
+  width: 100%;
+  background-color: #d8e0cc;
+  border-radius: 30px;
   margin: auto;
 }
 
 .card-content {
   padding: 20px;
   font-size: 20px;
-  display: flex;
+  display: block;
   text-align: center;
   align-items: center;
+
 }
 
 .btn-primary {
@@ -63,3 +62,14 @@ html {
   min-width: 100px;
 }
 
+div.nav.text-center.mb-5{
+  display: inline-block;
+  align-items: center;
+  width: 100%;
+
+}
+
+div.wholecard{
+  margin-top: 80px;
+  padding-bottom: 0px;
+}

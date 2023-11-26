@@ -50,18 +50,20 @@ const Home = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+    
     <div className="container mt-5">
+      <div id='02'>
+          <Link to="/painel-usuario">
+            <img id="user" src={userIcon} alt="" />
+          </Link>
+        </div>
       {/* Header da página */}
       <div className="nav text-center mb-5">
-        <img id="quiz" src={quiz} alt="" />
-        <button className="btn btn-primary">
-          <span className="desktop">Todos os Quizzes</span>
-          <span className="mobile">Quizzes</span>
-        </button>
+
+        <div><img id="quiz" src={quiz} alt="" /> </div>
         
-        <Link to="/painel-usuario">
-          <img id="user" src={userIcon} alt="" />
-        </Link>
+        
+
       </div>
 
       {/* Seção de botões de quizz */}

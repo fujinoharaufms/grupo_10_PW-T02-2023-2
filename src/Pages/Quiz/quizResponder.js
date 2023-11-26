@@ -6,8 +6,8 @@ import { db } from '../../fireBaseConnection';
 import './quizResponder.modules.css';
 
 const Quiz = () => {
-  const { quizId} = useParams();
-  const { user } = useAuthentication(); //Verificar se há user logado
+  const { quizId } = useParams();
+  const { user } = useAuthentication();
   const navigate = useNavigate();
   const [quizData, setQuizData] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -63,6 +63,7 @@ const Quiz = () => {
             score,
           });
           console.log('Pontuação salva com sucesso:', score);
+          console.log(quizData.userId)
         } catch (error) {
           console.error('Erro ao salvar pontuação:', error);
         }
@@ -104,8 +105,18 @@ const Quiz = () => {
 
   const submitQuiz = () => {
     calculateScore();
-    setQuizCompleted(true); // Marca o quiz como concluído
+    setQuizCompleted(true);
   };
+
+  if (quizCompleted) {
+    return (
+      <div className="container-fluid text-center">
+        <h3>Quiz Concluído!</h3>
+        <h4>Sua Pontuação: {score}/{quizData.questoes.length}</h4>
+        <button className="btn btn-primary" onClick={() => navigate('/')}>Voltar</button>
+      </div>
+    );
+  }
 
   if (!quizData || !quizData.questoes || quizData.questoes.length === 0) {
     return <div>Carregando quiz...</div>;
@@ -124,14 +135,14 @@ const Quiz = () => {
         {/* Conteúdo principal */}
         <div className="col-sm-9 text-center">
           <h3 className="d-flex justify-content-start">{quizData.nomeQuizz} - Questão {currentQuestionIndex + 1}/{quizData.questoes.length}</h3>
-          {/* Imagem do Quiz, se houver */}
+          <h4>{currentQuestion.pergunta}</h4>
           
           <form className="boxRespostas mb-4">
             {currentQuestion.opcoes.map((option, index) => (
               <div className="mb-3" key={index}>
                 <button 
                   type="button" 
-                  className={`btn btn-primary custom-color${index + 1} estilo`}
+                  className={`btn btn-primary custom-color${index + 1} estilo ${userAnswers[currentQuestionIndex] === option ? "selected-option" : ""}`}
                   onClick={() => handleAnswerSelection(option)}
                 >
                   {option}

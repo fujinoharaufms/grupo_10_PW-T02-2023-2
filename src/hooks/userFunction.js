@@ -3,7 +3,6 @@ import { db } from '../fireBaseConnection';
 import { useState, useEffect } from 'react';
 
 
-
 // Função para buscar o nome de um usuário com base no seu ID
 export const acharNome = async (userId) => {
   try {
@@ -25,6 +24,7 @@ export const acharNome = async (userId) => {
 
 export const useUserScore = (userId) => {
   const [score, setScore] = useState(0);
+  console.log(userId);
   const [isConquista, setIsConquista] = useState(false);
 
   useEffect(() => {

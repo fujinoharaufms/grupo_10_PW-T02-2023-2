@@ -26,6 +26,7 @@ import AdmPainel from './Pages/admPage/AdmDashboard';
 import PainelUser from './Pages/Usuario/usuarioPainel';
 import QuizzesList from './Pages/admPage/AdmListarQuiz';
 import View from './Pages/admPage/visualizarQuiz';
+import Conquistas from './Pages/Usuario/conquistas';
 
 
 
@@ -62,6 +63,7 @@ function App() {
           <Route path="/verificar-admin" element={<VerificarAdmin />} /> 
           <Route path='/listar-quizzes-adm' element={<QuizzesList/>} />
           <Route path="/quiz-view/:quizId" element={<View />} />
+          <Route path="/Conquistas" element={<Conquistas />} />
           <Route path="/painel-usuario" element={<PainelUser />} />
            {/* Adicione a rota para o componente Quiz */}
            <Route path="/quiz/:quizId" element={<Quiz />} />
